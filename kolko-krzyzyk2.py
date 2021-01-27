@@ -19,7 +19,7 @@ def main():
 
     class pola(object):
         def __init__(self, value):
-            self.value = 0
+            self.value = value
 
         def x_wybor(self):
             self.value = 10
@@ -27,8 +27,12 @@ def main():
         def o_wybor(self):
             self.value = 1
 
+        def zero_value(self):
+            self.value = 0
+
         def return_value(self):
             return self.value
+
 
         @staticmethod
         def up_suma():
@@ -62,9 +66,11 @@ def main():
         def right_left_suma():
             return up_right.return_value() + mid_mid.return_value() + dow_left.return_value()
 
+
+
     # zmienne, wewnętrzne wartości
 
-    up_left = pola(0)
+    up_left = pola(10)
     up_mid = pola(0)
     up_right = pola(0)
     mid_left = pola(0)
@@ -77,6 +83,7 @@ def main():
     data = [up_left, up_mid, up_right, mid_left, mid_mid, mid_right, dow_left, down_mid, down_right]
 
     suma_list = [pola.up_suma(), pola.mid_suma(), pola.down_suma(), pola.left_suma(), pola.mid_mid_suma(), pola.rigth_suma(), pola.left_right_suma(), pola.right_left_suma() ]
+
 
     #wpisane wyboru do tabeli i pamięci
 
@@ -94,17 +101,40 @@ def main():
     #sprawdzanie sumy dla komputera
 
     def check_comp():
-        for i in range(8):
-            if suma_list[i] == 10:
-                print('tak')
-                if i == 1:
-                    up_left.o_wybor()
-                    tabela[0][0] = 'O'
-                    Print()
-            elif suma_list[i] == 2:
-                pass
-            elif suma_list[i] == 1:
-                pass
+        print('check jest')
+        print(suma_list)
+        for i in range(0, 8):
+            def check(i):
+                if suma_list[i] == 10:
+                    print('działa')
+
+    #kończenie gry
+    def end_game_loop():
+
+            gra = False
+            end_game = str(input('Koniec gry, wygrałeś, chcesz zagrać jeszcze raz?\ntak/nie: '))
+            while True:
+                try:
+                    if end_game == 'nie':
+                        break
+                        gra = False
+                        print('KONIEC GRY')
+
+                    elif end_game == 'tak':
+                        break
+                        gra = True
+
+                    else:
+                        print('wpisz poprawnie: ')
+
+                except ValueError:
+                    print('wpisz poprwanie')
+
+    def end_game():
+        if suma_list[0] == 30:
+            end_game_loop()
+        elif suma_list[1] == 30:
+            pass
 
 
 
@@ -112,11 +142,12 @@ def main():
 
     gra = True
 
-    # wybór trybu
+    #wybór trybu
     while True:
         try:
-            game_mode = int(input('Wybierz tryb gry 1 lub 2: '))
-            #check_comp()
+            game_mode = int(input('Wybierz tryb gry 1 (gra z komputerem) lub 2 (gra z drugim graczem): '))
+            #end_game()
+
             #Print()
             if game_mode == 1:
                 singlepayer = True
@@ -141,6 +172,7 @@ def main():
             while True:
                 try:
                     field_choose = int(input('Wybierz pole'))
+
                     if data[field_choose - 1].return_value() == 0:
                         if field_choose == 1 or field_choose == 2 or field_choose == 3:
                             change_table(0, (field_choose - 1) * 2, field_choose)
@@ -164,10 +196,11 @@ def main():
                 except ValueError:
                     print('wpisz poprawną wartość')
             #wybór komputera
+
             check_comp()
         elif multiplayer:
             #gracz pierwszy
-            while True:
+            while True: #pętla do try
                 try:
                     field_choose = int(input('Wybierz pole, gracz pierwszy: '))
                     if data[field_choose - 1].return_value() == 0:
@@ -193,7 +226,7 @@ def main():
                 except ValueError:
                     print('Wygląda na to, że coś źle wpisałeś. Wartości od 1 do 9')
             while True:
-                #gracz drugi
+                #gracz drugi, pętla do try
                 try:
                     field_choose = int(input('Wybierz pole, drugi gracz: '))
                     if data[field_choose - 1].return_value() == 0:
@@ -221,7 +254,7 @@ def main():
 
 
 
-            Print()
+            #Print()
 
         #break
 
